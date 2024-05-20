@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Peptides DATABASE</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    
+    <link rel="apple-touch-icon" href="/templates/">
+
+    <link rel="stylesheet" href="../static/hamp/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/hamp/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../static/hamp/fontAwesome.css">
+    <link rel="stylesheet" href="../static/hero-slider.css">
+    <link rel="stylesheet" href="../static/hamp/templatemo-style.css">
+    <link rel="stylesheet" href="../static/hamp/lightbox.css">
+
+    <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    
+    <script type="text/javascript">
+        function getseq(t){
+            document.getElementById('SEQUENCE').value = "";
+            var myVal;
+            myVal = document.getElementById('SEQUENCE').value;
+            myVal += ''+ t;
+            document.getElementById('SEQUENCE').value = myVal;
+        }
+        function paste_examplep() {
+            document.getElementsByName('seq')[0].value = "RGDLLRHVVKILEKYL";
+        } 
+        function validateform() {
+            var y = document.forms["myForm"]["seq"].value;
+            if(y == null || y == "") {
+                alert("Sequence must be filled out");
+                return false;
+            }
+        }
+    </script>
+    
+    <style>
+        .header input[type=text] {
+            float: center;
+            padding: 10px;
+            border: none;
+            margin-top: 8px;
+            margin-right: 20px;
+            font-size: 17px;
+        }
+        footer {
+            background-color: #000000;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+        .main-content {
+            padding-bottom: 100px; /* Adjust this value as needed */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="container">
+            <nav class="navbar navbar-inverse" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="#" class="navbar-brand scroll-top"><em>Peptides DB</em></a>
+                </div>
+                <!--/.navbar-header-->
+                <div id="main-nav" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#" class="scroll-top">Home</a></li>
+                        <li><a href="#" class="scroll-top">About</a></li>
+                        <li><a href="#" class="scroll-link" data-id="about">Short Linear Peptides</a></li>
+						<li><a href="/blastr"  data-id="about">BLast</a></li>
+						<!--
+                        <li><a href="#" class="scroll-link" data-id="portfolio">Portfolio</a></li>
+                        <li><a href="#" class="scroll-link" data-id="blog">Blog</a></li>
+                        <li><a href="#" class="scroll-link" data-id="contact-us">Contact Us</a></li>
+						-->
+                    </ul>
+                </div>
+                <!--/.navbar-collapse-->
+            </nav>
+            <!--/.navbar-->
+        </div>
+        <!--/.container-->
+    </div>
+    <!--/.header-->
+
+    <form method="post" action="{% url 'blastrun' %}">
+        {% csrf_token %}
+    <div class="main-content">
+        <!-- Your additional content goes here -->
+        <table><tr><td><br></td></tr></table>
+        <table border="1" width="800" bgcolor="#8c0209"><tr><td align="center"><h1><font color="white">Blast-Search</font></h1></td></tr></table>
+        <table width="800" cellpadding="5" bgcolor="white"><tr><td align="justify">Blast-Search page assists the user to run a BLAST-P search After submission of job it returns the list of peptides similar to the query peptide. The server provides options to choose different parameters like weight matrix and expectation value. For more information see <a href="http://webs.iiitd.edu.in/raghava/cancerppd/assist.php#blast"><font color="red">HELP</font></a> page.</td></tr></table>
+        <table border="1" width="790" cellpadding="1" align="center" bgcolor="white">
+            <tr><td align="left" width="261"><b>Paste your peptide sequence in FASTA format.</b>&nbsp;&nbsp;(<input type="button" value="Example Sequence" onClick="paste_examplep()">)</td></tr>
+            <tr><td align="left"><textarea ALIGN="TOP" ROWS="6" COLS="60" name="seq"></textarea></td></tr>
+            <tr align="left"><td><br>By default all the parameters of Blast are set for <a href="http://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=ProgSelectionGuide#shortp" target="_new"><b><font color="black">peptide blast</font></b></a>. <br>User can change the parameters as per the needs.<br><br>
+            <b>E-Value</b>&nbsp;&nbsp;<select SIZE="1" NAME="expect"><option VALUE="0.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001"></b>1e-100<option VALUE="0.0000000001">1e-10<option VALUE="0.00001">1e-5<option VALUE="0.01">0.01<option VALUE="0.1">0.1<option VALUE="1">1<option VALUE="10">10<option VALUE="100">100<option VALUE="100">500 <option VALUE="1000">1000 <option VALUE="2000">2000<option VALUE="20000" SELECTED>20000</select>
+            <b>&nbsp;&nbsp;&nbsp;&nbsp;Matrix&nbsp;&nbsp;<select NAME="matrix"><option VALUE="BLOSUM80"></b>BLOSUM80<option VALUE="BLOSUM62">BLOSUM62<option VALUE="BLOSUM45">BLOSUM45<option VALUE="PAM30" SELECTED>PAM30<option VALUE="PAM70">PAM70</select>
+            <b>&nbsp;&nbsp;&nbsp;&nbsp;Word Size&nbsp;&nbsp;<select NAME="word"><option VALUE="2" SELECTED></b>2<option VALUE="3">3</select><br><br>
+            <b>SEG Filtering&nbsp;&nbsp;<select NAME="seg"><option VALUE="F" SELECTED></b>OFF<option VALUE="T">ON</select>
+            <b>&nbsp;&nbsp;&nbsp;&nbsp;Compositional Biasness&nbsp;&nbsp;<select NAME="biasness"><option VALUE="F" SELECTED></b>OFF<option VALUE="T">
+            <input type="submit" value="Blast">
+        </form>
+        </table>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <div class="logo">
+                        <a class="logo-ft scroll-top" href="#"><em>PEP Active-Finder DB</em></a>
+                        <p> peptide sequences associated with various immune receptors
+                       <br></p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="location">
+                        <h4>Info</h4>
+                        <ul>
+                            <li>Computaional Biology Lab <br> Dept of Bioinformatics </li>
+                            <li>Bharathiar University<br> 
+							Coimbatore India </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <div class="contact-info">
+                        <h4>contact us </h4>
+                        <ul>
+                            <li><em>Phone</em>: 0422-2422222-282</li>
+                            <li><em>Email</em>:shanmughavel@buc.edu.in</li>
+                        </ul>
+                    </div>
+                </div>
+
+</body>
+</html>

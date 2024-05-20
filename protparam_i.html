@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Peptides DATABASE</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    
+    <link rel="apple-touch-icon" href="/templates/">
+
+    <link rel="stylesheet" href="../static/hamp/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/hamp/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../static/hamp/fontAwesome.css">
+    <link rel="stylesheet" href="../static/hero-slider.css">
+    <link rel="stylesheet" href="../static/hamp/templatemo-style.css">
+    <link rel="stylesheet" href="../static/hamp/lightbox.css">
+
+    <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    
+    <script type="text/javascript">
+        function getseq(t){
+            document.getElementById('SEQUENCE').value = "";
+            var myVal;
+            myVal = document.getElementById('SEQUENCE').value;
+            myVal += ''+ t;
+            document.getElementById('SEQUENCE').value = myVal;
+        }
+        function paste_examplep() {
+            document.getElementsByName('seq')[0].value = "RGDLLRHVVKILEKYL";
+        } 
+        function validateform() {
+            var y = document.forms["myForm"]["seq"].value;
+            if(y == null || y == "") {
+                alert("Sequence must be filled out");
+                return false;
+            }
+        }
+    </script>
+    
+    <style>
+        .header input[type=text] {
+            float: center;
+            padding: 10px;
+            border: none;
+            margin-top: 8px;
+            margin-right: 20px;
+            font-size: 17px;
+        }
+        footer {
+            background-color: #000000;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+        .main-content {
+            padding-bottom: 100px; /* Adjust this value as needed */
+            margin-left: 350px;
+            margin-top: 70px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="container">
+            <nav class="navbar navbar-inverse" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="#" class="navbar-brand scroll-top"><em>Pep Active-Finder DB</em></a>
+                </div>
+                <!--/.navbar-header-->
+                <div id="main-nav" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#" class="scroll-top">Home</a></li>
+                        <li><a href="#" class="scroll-top">About</a></li>
+        
+                        <li><a href="/pdb_i" >PDB Builder</a></li>
+                        <li><a href="/protparam_i"  data-id="about">Protparam</a></li>
+						<li><a href="/blastr"  data-id="about">BLast</a></li>
+						<!--
+                        <li><a href="#" class="scroll-link" data-id="portfolio">Portfolio</a></li>
+                        <li><a href="#" class="scroll-link" data-id="blog">Blog</a></li>
+                        <li><a href="#" class="scroll-link" data-id="contact-us">Contact Us</a></li>
+						-->
+                    </ul>
+                </div>
+                <!--/.navbar-collapse-->
+            </nav>
+            <!--/.navbar-->
+        </div>
+        <!--/.container-->
+    </div>
+    <!--/.header-->
+    <br>
+    <br>
+
+    
+    <form method="post" action="{% url 'prtrun' %}">
+        {% csrf_token %}
+        <div class="main-content">
+            <h1>Protparam</h1>
+            <p> Identify physico-chemical properties of a protein sequence <a href="http://webs.iiitd.edu.in/raghava/cancerppd/assist.php#blast">Learn more</a></p>
+            <p><b>Paste your peptide sequence in FASTA format.</b> (<input type="button" value="Example Sequence" onClick="paste_examplep()">)</p>
+            <textarea rows="6" cols="60" name="seq"></textarea>
+            <input type="submit" value="Run">
+        </div>
+    </form>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <div class="logo">
+                        <a class="logo-ft scroll-top" href="#"><em>PEP Active-Finder DB</em></a>
+                        <p> peptide sequences associated with various immune receptors
+                       <br></p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="location">
+                        <h4>Info</h4>
+                        <ul>
+                            <li>Computaional Biology Lab <br> Dept of Bioinformatics </li>
+                            <li>Bharathiar University<br> 
+							Coimbatore India </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <div class="contact-info">
+                        <h4>contact us </h4>
+                        <ul>
+                            <li><em>Phone</em>: 0422-2422222-282</li>
+                            <li><em>Email</em>:shanmughavel@buc.edu.in</li>
+                        </ul>
+                    </div>
+                </div>
+
+</body>
+</html>

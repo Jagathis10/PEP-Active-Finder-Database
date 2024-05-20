@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Peptides DATABASE</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../static/hamp/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/hamp/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../static/hamp/fontAwesome.css">
+    <link rel="stylesheet" href="../static/hero-slider.css">
+    <link rel="stylesheet" href="../static/hamp/templatemo-style.css">
+    <link rel="stylesheet" href="../static/hamp/lightbox.css">
+
+    <script src="../js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+
+<style>
+.header input[type=text] {
+    float: right;
+    padding: 10px;
+    border: none;
+    margin-top: 8px;
+    margin-right: 20px;
+    font-size: 17px;
+}
+</style>
+
+<body>
+    <div class="header">
+        <div class="container">
+            <nav class="navbar navbar-inverse" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="#" class="navbar-brand scroll-top"><em>Pep Active-Finder DB</em></a>
+                </div>
+                <!--/.navbar-header-->
+                <div id="main-nav" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#" class="scroll-top">Home</a></li>
+                        <li><a href="#" class="scroll-top">About</a></li>
+        
+                        <li><a href="/pdb_i" >PDB Builder</a></li>
+                        <li><a href="/protparam_i"  data-id="about">Protparam</a></li>
+						<li><a href="/blastr"  data-id="about">BLast</a></li>
+						<!--
+                        <li><a href="#" class="scroll-link" data-id="portfolio">Portfolio</a></li>
+                        <li><a href="#" class="scroll-link" data-id="blog">Blog</a></li>
+                        <li><a href="#" class="scroll-link" data-id="contact-us">Contact Us</a></li>
+						-->
+                    </ul>
+                </div>
+                <!--/.navbar-collapse-->
+            </nav>
+            <!--/.navbar-->
+        </div>
+        <!--/.container-->
+    </div>
+    <!--/.header-->
+
+
+<br>
+
+<!--Search-bar-->
+<div class="center-align" ><br><br><br><br><br><br>
+    <h2 style="text-align: center;">BLAST Search Results</h2>
+    <div id="blast-results" style="margin-left: 200px;"></div>
+
+    <script>
+        const xmlhttp = new XMLHttpRequest();
+        const url = "/static/blast_results.xml";
+
+        xmlhttp.open("GET", url, true);
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                const xmlDoc = this.responseXML;
+                let results = "";
+
+                const hits = xmlDoc.getElementsByTagName("Hit");
+                for (let i = 0; i < hits.length; i++) {
+                    const hitNum = hits[i].getElementsByTagName("Hit_num")[0].textContent;
+                    const hitId = hits[i].getElementsByTagName("Hit_id")[0].textContent;
+                    const hitDef = hits[i].getElementsByTagName("Hit_def")[0].textContent;
+                    const hitAccession = hits[i].getElementsByTagName("Hit_accession")[0].textContent;
+
+                    results += "<h2>Hit " + hitNum + "</h2>";
+                    results += "<p><b>Hit id:</b> " + hitId + "</p>";
+                    results += "<p><b>Hit definition:</b> " + hitDef + "</p>";
+                    results += "<p><b>Hit accession:</b> " + hitAccession + "</p>";
+
+                    const hsps = hits[i].getElementsByTagName("Hsp");
+                    for (let j = 0; j < hsps.length; j++) {
+                        const hspNum = hsps[j].getElementsByTagName("Hsp_num")[0].textContent;
+                        const hspBitScore = hsps[j].getElementsByTagName("Hsp_bit-score")[0].textContent;
+                        const hspQueryFrame = hsps[j].getElementsByTagName("Hsp_query-frame")[0].textContent;
+                        const hspHitFrame = hsps[j].getElementsByTagName("Hsp_hit-frame")[0].textContent;
+                        const hspIdentity = hsps[j].getElementsByTagName("Hsp_identity")[0].textContent;
+                        const hspMidline = hsps[j].getElementsByTagName("Hsp_midline")[0].textContent;
+                        const hspQseq = hsps[j].getElementsByTagName("Hsp_qseq")[0].textContent;
+                        const hspHseq = hsps[j].getElementsByTagName("Hsp_hseq")[0].textContent;
+
+                        results += "<h3>Hsp " + hspNum + "</h3>";
+                        results += "<p><b>Bit score:</b> " + hspBitScore + "</p>";
+                        results += "<p><b>Query frame:</b> " + hspQueryFrame + "</p>";
+                        results += "<p><b>Hit frame:</b> " + hspHitFrame + "</p>";
+                        results += "<p><b>Identity:</b> " + hspIdentity + "</p>";
+                        results += "<p><b>Midline:</b> " + hspMidline + "</p>";
+                        results += "<p><b>Query sequence:</b> " + hspQseq + "</p>";
+                        results += "<p><b>Hit sequence:</b> " + hspHseq + "</p>";
+                    }
+                }
+
+                document.getElementById("blast-results").innerHTML = results;
+            }
+        };
+
+        xmlhttp.send();
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!-- prt_results.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Peptides DATABASE</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    
+    <link rel="apple-touch-icon" href="/templates/">
+
+    <link rel="stylesheet" href="../static/hamp/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/hamp/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../static/hamp/fontAwesome.css">
+    <link rel="stylesheet" href="../static/hero-slider.css">
+    <link rel="stylesheet" href="../static/hamp/templatemo-style.css">
+    <link rel="stylesheet" href="../static/hamp/lightbox.css">
+
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <nav class="navbar navbar-inverse" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="#" class="navbar-brand scroll-top"><em>Pep Active-Finder DB</em></a>
+                </div>
+                <!--/.navbar-header-->
+                <div id="main-nav" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#" class="scroll-top">Home</a></li>
+                        <li><a href="#" class="scroll-top">About</a></li>
+        
+                        <li><a href="/pdb_i" >PDB Builder</a></li>
+                        <li><a href="/protparam_i"  data-id="about">Protparam</a></li>
+						<li><a href="/blastr"  data-id="about">BLast</a></li>
+						<!--
+                        <li><a href="#" class="scroll-link" data-id="portfolio">Portfolio</a></li>
+                        <li><a href="#" class="scroll-link" data-id="blog">Blog</a></li>
+                        <li><a href="#" class="scroll-link" data-id="contact-us">Contact Us</a></li>
+						-->
+                    </ul>
+                </div>
+                <!--/.navbar-collapse-->
+            </nav>
+            <!--/.navbar-->
+        </div>
+        <!--/.container-->
+    </div>
+    <!--/.header-->
+<br>
+<br>
+<br>
+<br>
+<br>
+<div style="margin-left: 200px;">
+    <h1>ProtParam Results</h1>
+    <p>Molecular Weight: {{ molecular_weight }}</p>
+    <p>Isoelectric Point: {{ isoelectric_point }}</p>
+    <p>Amino Acid Composition:</p>
+    <ul>
+        {% for amino_acid, count in amino_acid_composition.items %}
+            <li>{{ amino_acid }}: {{ count }}</li>
+        {% endfor %}
+    </ul></div>
+</body>
+</html>
